@@ -2,7 +2,7 @@ const { Schema, model } = require('mongoose');
 
 const thoughtSchema = new Schema (
     {
-        toughtText: {
+        thoughtText: {
             type: String,
             required: true,
             minLength: 1,
