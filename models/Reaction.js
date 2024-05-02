@@ -18,7 +18,11 @@ const reactionSchema = new Schema(
         createdAt: {
             type: Date,
             default: Date.now,
-            get: (createdAtVal) => createdAtVal.toISOString().split('T')[0], // Formats the date to YYYY-MM-DD
+            get: (createdAtVal) => {
+                const datePart = createdAtVal.toISOString().split('T')[0];
+                const timePart = createdAtVal.toISOString().split('T')[1].slice(0, 5);
+                return `${datePart} ${timePart}`;
+            }
         },
     },
     {
