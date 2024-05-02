@@ -5,7 +5,8 @@ module.exports = {
     //get all thoughts
     async getThoughts(req, res) {
         try {
-            const thoughts = await Thought.find();
+            const thoughts = await Thought.find()
+            .populate('reactions');
             res.json(thoughts);
         } catch (err) {
             res.status(500).json(err);
@@ -15,7 +16,9 @@ module.exports = {
     //get single thought by Id
     async getSingleThought(req, res) {
         try {
-            const thought = await Thought.findOne({ _id: req.params.thoughtId });
+            const thought = await Thought.findOne({ _id: req.params.thoughtId })
+            .select('-_V')
+            .populate('reactions');
 
             if (!thought) {
                 return res.status(404).json({ message: 'No thought with that Id' });
